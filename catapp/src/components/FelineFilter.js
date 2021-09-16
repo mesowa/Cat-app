@@ -7,28 +7,7 @@ const FelineFilter = () => {
 
   const [ cats, setCats ] = useState([])
   const [ hasError, setHasError ] = useState(false)
-  // const [ catPage, setCatPage ] = useState(0)
-  // const [ catImage, setCatImage ] = useState('')
-
-  // useEffect(() => {
-  //   const increaseCatPage =  
-  // })
-
-
-
-  // useEffect(() => {
-  //   const getCatImage = async () => {
-  //     try {
-  //       const { data } = await axios({`https://cdn2.thecatapi.com/images/${cats.image.id}.jpg`})
-  //       setCatImage(data)
-  //     } catch (err) {
-  //       setHasError(true)
-  //     }
-  //   }
-  //   getCatImage()
-  // })
-
-  // console.log('cat image url=>', catImage)
+ 
 
   useEffect(() => {
     const getCats = async () => {
@@ -43,16 +22,19 @@ const FelineFilter = () => {
     getCats() 
   }, [])
 
-  //   const filteredCats = () => {
-  //     return(
+  const filteredCat = (e) => {
+    const newObj = { ...cats, [e.target.name]: e.target.value }
+    setCats(newObj)
+  }
+  //   <select onChange={handleFilterChange} name="origin" value={origin}>
 
-  //     )
-  // }
-
+  //    const handleFilterChange = event => {
+  //   const newObj = { ...filters, [event.target.name]: event.target.value }
+  //   setFilters(newObj)
 
   return (
     <>
-      <h1 className="text-center">Feline Filter</h1>
+      <h1 className="text-center pt-3">Feline Filter</h1>
       <hr />
       <div className="grid-container">
         <nav >
@@ -60,18 +42,13 @@ const FelineFilter = () => {
           <hr/>
           <h3 className='text-center  m-2 p-1 '>Origin 🌏</h3>
           <select className='m-3 p-1'>
-            {/* {cats.map((cat) => {
-              return (
-                <option key={cat.id}>{cat.origin}</option>
-              )
-            }
-            )} */}
+      
             {cats.length > 0 &&
               cats.reduce((acc, cat) => {
                 return acc.includes(cat.origin) ? acc : [...acc, cat.origin]
               }, []).map((cat, i) => {
                 return (
-                  <option value={cat} key={i}>{cat}</option>
+                  <option value={cats} key={i}>{cat}</option>
                 )
               })
             }
@@ -80,7 +57,7 @@ const FelineFilter = () => {
           <select className='m-3 p-1'>
             {cats.map((cat) => {
               return (
-                <option key={cat.id}>{cat.name}</option>
+                <option onChange={filteredCat} name={cat.name} value={cat.name} key={cat.id}>{cat.name}</option>
               )
             }
             )}
@@ -91,8 +68,11 @@ const FelineFilter = () => {
           {cats.map((cat) => {
             return (
               <>
-                <div className="grid-item">
-                  <p key={cat.id}>{cat.name} - {cat.origin}</p>
+                <div className="grid-item pb-3">
+                  <p className='pt-3'key={cat.id}>{cat.name}</p>
+                  <p>{cat.origin}</p>
+                  <img src={cat.image && cat.image.url}></img>
+                  <p></p>
                   <button type="button" className="btn btn-warning"><Link to={`/CatPage/${cat.id}`}>Learn More</Link></button>
                 </div>
               </>
@@ -109,10 +89,51 @@ const FelineFilter = () => {
 
 export default FelineFilter
 
+
+
+//// ### CODE CEMENTRY (T.T)
+
 // {cats.length > 0 && cats.reduce((acc, cat) => {
 //   console.log('acc ->', acc)
 //   if (acc) {
 //     return acc.includes(cat.origin) ? acc : [...acc, cat.origin]
 //   }
 //   return [acc] 
+// }
+
+// const [ catPage, setCatPage ] = useState(0)
+// const [ catImage, setCatImage ] = useState('')
+
+// useEffect(() => {
+//   const increaseCatPage =  
+// })
+
+
+
+// useEffect(() => {
+//   const getCatImage = async () => {
+//     try {
+//       const { data } = await axios({`https://cdn2.thecatapi.com/images/${cats.image.id}.jpg`})
+//       setCatImage(data)
+//     } catch (err) {
+//       setHasError(true)
+//     }
+//   }
+//   getCatImage()
+// })
+
+// console.log('cat image url=>', catImage)
+
+{/* {cats.map((cat) => {
+              return (
+                <option key={cat.id}>{cat.origin}</option>
+              )
+            }
+            )} */}
+
+
+//   const filteredCats = () => {
+//     return(
+
+//     )
 // }
