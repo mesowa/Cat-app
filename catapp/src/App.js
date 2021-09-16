@@ -15,7 +15,7 @@ function App() {
           <Route exact path= "/">
             <Home />
           </Route >
-          <Route exact path= "/CatPage">
+          <Route path= "/CatPage/:id">
             <CatPage />
           </Route>
           <Route exact path="/FelineFilter">
