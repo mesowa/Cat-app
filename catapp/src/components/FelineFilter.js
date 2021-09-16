@@ -4,28 +4,48 @@ import axios from 'axios'
 
 const FelineFilter = () => {
 
-  const [cats, setCats] = useState([])
+  const [ cats, setCats ] = useState([])
   const [ hasError, setHasError ] = useState(false)
+  const [ catImage, setCatImage ] = useState('')
 
-
+  useEffect(() => {
+    fetch(`https://cdn2.thecatapi.com/images/${cat.image.id}.jpg`)
+  })
 
   useEffect(() => {
     const getCats = async () => {
       try {
         const { data } = await axios('https://api.thecatapi.com/v1/breeds')
-        setCats(data)        
+        setCats(data)
+        console.log(data)  
       } catch (err) {
         setHasError(true)
       }
     }
     getCats() 
   }, [])
+
   console.log('cats =>', typeof cats)
+  
+  
+  // catImage = `https://cdn2.thecatapi.com/images/${cats.image.id}.jpg`
+  
   return (
     <>
-      <h1>Feline Filter</h1>  
-      <h1>{cats.map(x=> <div key={x.id}> {x.name} {x.origin}</div>)} </h1> 
-      {/* map through cats and retuirn by id & origin*/}
+      <h1>Feline Filter</h1>
+      <hr />
+      <div className="grid-container">
+        {cats.map((cat) => {
+          return (
+            <>
+              <div className="grid-item">
+                <p key={cat.id}>{cat.name} - {cat.origin}</p>
+              </div>
+            </>
+          )
+      
+        })}
+      </div>
       <h1>{hasError}</h1>
     </>
   ) 
