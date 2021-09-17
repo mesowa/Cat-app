@@ -4,6 +4,7 @@ import CatPage from './components/CatPage'
 import FelineFilter from './components/FelineFilter'
 import Footer from './components/Footer'
 import Nav from './components/Nav'
+import Random from './components/Random'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route exact path="/FelineFilter">
             <FelineFilter />
+          </Route>
+          <Route path="/random">
+            <Random />
           </Route>
         </Switch>
         <Footer />

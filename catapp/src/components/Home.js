@@ -1,14 +1,14 @@
 import React from 'react'
-import img from '../images/IMG_3061.JPG'
+import img from '../images/pawspaws.png'
 
 const Home = () => {
   return (
     <>
-      <div className='container'>
-        <h1 className= 'text-center'>Welcome to Catopedia</h1>
-        <img className="rounded mx-auto d-block" src={img}/>
+      <div className='d-block pt-5  align-items-center '>
+        <h1 className= 'd-block align-items-center text-center'>Welcome to Catopedia</h1>
+        <p className= 'd-block align-items-center text-center fs-1 text'>🐾</p> 
       </div>
-    </>
+    </> 
   )
 }
 

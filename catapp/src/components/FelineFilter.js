@@ -7,7 +7,10 @@ const FelineFilter = () => {
 
   const [ cats, setCats ] = useState([])
   const [ hasError, setHasError ] = useState(false)
+  const [ filteredCats, setFilteredCats ] = useState([])
+  // const [ filters, setFilters ] = useState({ origin: '' })
  
+
 
   useEffect(() => {
     const getCats = async () => {
@@ -24,24 +27,25 @@ const FelineFilter = () => {
 
   const filteredCat = (e) => {
     const newObj = { ...cats, [e.target.name]: e.target.value }
-    setCats(newObj)
+    setFilteredCats(newObj)
   }
-  //   <select onChange={handleFilterChange} name="origin" value={origin}>
-
-  //    const handleFilterChange = event => {
-  //   const newObj = { ...filters, [event.target.name]: event.target.value }
-  //   setFilters(newObj)
+  useEffect(() => {
+    setFilteredCats(cats.filter(cat=> {
+      console.log(filteredCats.origin === cat.origin)
+      return (filteredCats.origin === cat.origin)
+    }))
+  }, [filteredCats, cats])
 
   return (
     <>
-      <h1 className="text-center pt-3">Feline Filter</h1>
+      <h1 className="text-center fw-bolder pt-3">Feline Filter</h1>
       <hr />
       <div className="grid-container">
         <nav >
-          <h2 className='text-centre m-5'>Filter by</h2>
+          <h2 className='text-centre m-5'>Filter by:</h2>
           <hr/>
           <h3 className='text-center  m-2 p-1 '>Origin 🌏</h3>
-          <select className='m-3 p-1'>
+          <select onChange={filteredCat} className='m-3 p-1'>
       
             {cats.length > 0 &&
               cats.reduce((acc, cat) => {
@@ -54,7 +58,7 @@ const FelineFilter = () => {
             }
           </select>
           <h3 className='text-center m-2 p-1'>Breed 🐈</h3>
-          <select className='m-3 p-1'>
+          <select onChange={filteredCat} className='m-3 p-1'>
             {cats.map((cat) => {
               return (
                 <option onChange={filteredCat} name={cat.name} value={cat.name} key={cat.id}>{cat.name}</option>
@@ -68,12 +72,11 @@ const FelineFilter = () => {
           {cats.map((cat) => {
             return (
               <>
-                <div className="grid-item pb-3">
+                <div className="grid-item bg-light pb-3">
                   <p className='pt-3'key={cat.id}>{cat.name}</p>
                   <p>{cat.origin}</p>
-                  <img src={cat.image && cat.image.url}></img>
-                  <p></p>
-                  <button type="button" className="btn btn-warning"><Link to={`/CatPage/${cat.id}`}>Learn More</Link></button>
+                  <img src={cat.image && cat.image.url} alt="🐈"/> 
+                  <p></p><button type="button" className="btn btn-warning"><Link to={`/CatPage/${cat.id}`}>Learn More</Link></button>
                 </div>
               </>
             )
